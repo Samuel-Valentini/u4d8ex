@@ -8,6 +8,7 @@ public class Main {
 
         List<Product> products = new ArrayList<>();
 
+        products.add(new Product("Boys T-Shirt", "boys", 14.99));
         products.add(new Product("Clean Code", "book", 45.99));
         products.add(new Product("Effective Java", "book", 55.50));
         products.add(new Product("Design Patterns", "book", 120.00));
@@ -38,7 +39,6 @@ public class Main {
         products.add(new Product("Diaper Bag", "baby", 39.50));
         products.add(new Product("Baby High Chair", "baby", 129.99));
         products.add(new Product("Pacifier Pack", "baby", 9.99));
-        products.add(new Product("Boys T-Shirt", "boys", 14.99));
         products.add(new Product("Boys Sneakers", "boys", 49.90));
         products.add(new Product("Boys Jacket", "boys", 79.99));
         products.add(new Product("Boys Jeans", "boys", 34.50));
@@ -132,6 +132,12 @@ public class Main {
 
         System.out.println(orderOfBaby.size());
         System.out.println(orderOfBaby.toString());
+
+        List<Product> discountedBoys = products.stream().filter(product -> product.getCategory().equals("boys")).toList();
+        discountedBoys.forEach(product -> product.setPrice(product.getPrice() * 0.9));
+
+        System.out.println(discountedBoys);
+        System.out.println(products);
 
     }
 }
