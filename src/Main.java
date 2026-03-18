@@ -133,8 +133,10 @@ public class Main {
         System.out.println(orderOfBaby.size());
         System.out.println(orderOfBaby.toString());
 
-        List<Product> discountedBoys = products.stream().filter(product -> product.getCategory().equals("boys")).toList();
-        discountedBoys.forEach(product -> product.setPrice(product.getPrice() * 0.9));
+        List<Product> discountedBoys = products.stream().filter(product -> product.getCategory().equals("boys")).map(product -> new Product(product.getName(), product.getCategory(), product.getPrice() * 0.9)).toList();
+
+        // List<Product> discountedBoys = products.stream().filter(product -> product.getCategory().equals("boys")).toList();
+        //discountedBoys.forEach(product -> product.setPrice(product.getPrice() * 0.9));
 
         System.out.println(discountedBoys);
         System.out.println(products);
