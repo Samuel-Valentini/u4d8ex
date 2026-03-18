@@ -129,9 +129,7 @@ public class Main {
 
         System.out.println(booksOver100.toString());
 
-        List<Integer> indexOfBabyProduct = products.stream().filter(product -> Objects.equals(product.getCategory(), "baby")).map(product -> products.indexOf(product)).toList();
-
-        List<Order> orderOfBaby = orders.stream().filter(order -> order.getProducts().stream().anyMatch(product -> indexOfBabyProduct.contains(products.indexOf(product)))).toList();
+        List<Order> orderOfBaby = orders.stream().filter(order -> order.getProducts().stream().anyMatch(product -> product.getCategory().equals("baby"))).toList();
 
         System.out.println(orderOfBaby.size());
         System.out.println(orderOfBaby.toString());
@@ -144,7 +142,7 @@ public class Main {
         System.out.println(discountedBoys);
         System.out.println(products);
 
-        List<Product> productsOrderedByTier2inFebAndMar = orders.stream().filter(order -> order.getOrderDate().isAfter(LocalDate.of(2026, 1, 31))).filter(order -> order.getOrderDate().isBefore(LocalDate.of(2026, 4, 1))).filter(order -> order.getCustomer().getTier() == 2).flatMap(order -> order.getProducts().stream()).distinct().toList();
+        List<Product> productsOrderedByTier2inFebAndMar = orders.stream().filter(order -> order.getOrderDate().isAfter(LocalDate.of(2026, 1, 31)) && order.getOrderDate().isBefore(LocalDate.of(2026, 4, 1)) && order.getCustomer().getTier() == 2).flatMap(order -> order.getProducts().stream()).distinct().toList();
 
         System.out.println(productsOrderedByTier2inFebAndMar.toString());
 
