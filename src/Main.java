@@ -62,6 +62,9 @@ public class Main {
                 customers.get(0)
         ));
 
+        orders.get(0).setDeliveryDate(LocalDate.of(2026, 3, 17));
+        orders.get(0).setStatus("delivered");
+
         orders.add(new Order(
                 "shipped",
                 LocalDate.of(2026, 1, 15),
@@ -120,13 +123,13 @@ public class Main {
 
 
         System.out.println(products.toString());
+        System.out.println(orders.toString());
 
         List<Product> booksOver100 = products.stream().filter(product -> Objects.equals(product.getCategory(), "book") && product.getPrice() > 100).toList();
 
         System.out.println(booksOver100.toString());
 
         List<Integer> indexOfBabyProduct = products.stream().filter(product -> Objects.equals(product.getCategory(), "baby")).map(product -> products.indexOf(product)).toList();
-        System.out.println(indexOfBabyProduct);
 
         List<Order> orderOfBaby = orders.stream().filter(order -> order.getProducts().stream().anyMatch(product -> indexOfBabyProduct.contains(products.indexOf(product)))).toList();
 
@@ -140,6 +143,10 @@ public class Main {
 
         System.out.println(discountedBoys);
         System.out.println(products);
+
+        List<Product> productsOrderedByTier2inFebAndMar = orders.stream().filter(order -> order.getOrderDate().isAfter(LocalDate.of(2026, 1, 31))).filter(order -> order.getOrderDate().isBefore(LocalDate.of(2026, 4, 1))).filter(order -> order.getCustomer().getTier() == 2).flatMap(order -> order.getProducts().stream()).distinct().toList();
+
+        System.out.println(productsOrderedByTier2inFebAndMar.toString());
 
     }
 }
